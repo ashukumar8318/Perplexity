@@ -1,0 +1,29 @@
+Authentication system
+chat with AI   
+History of chat
+message storage
+AI with internet search feature
+
+Data Modeling 
+1) User
+_id
+username
+email
+password
+verified : by default verified will be false but on the email id it will send some link to verify the email then verification will be true
+createdAt
+updatedAt
+
+2) Chat
+_id
+user:refrence
+title
+createdAt
+updatedAt
+
+3) Message
+_id
+chat:refrence
+content
+role: [user,ai]
+
