@@ -1,7 +1,19 @@
 import {body,validationResult} from "express-validator"
 
+const validate = (req,res,next)=>{
+    const error = validationResult(req)
+    if(!error.isEmpty()){
+        return res.status(400).json({
+             errors: error.array() 
+        })
 
-export const registerValidator = [
+        
+
+    }
+    next()
+}
+
+ export const registerValidator = [
 
     body("username")
     .trim()
@@ -17,6 +29,9 @@ export const registerValidator = [
     body("password")
     .trim()
     .notEmpty("password is required")
-    .isLength({min:6, max:100}).withMessage("password must be between 6 and 100 characters")
+    .isLength({min:6, max:100}).withMessage("password must be between 6 and 100 characters"),
+
+    validate
 
 ]
+
