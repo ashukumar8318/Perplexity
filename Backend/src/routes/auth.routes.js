@@ -6,9 +6,7 @@ import { registerController } from "../controller/auth.controller.js"
 
 
 
-authRoutes.get("/register",registerValidator,(req,res)=>{
-    res.send("register routes")
-})
+authRoutes.get("/register",registerValidator,registerController)
 
 
 

@@ -25,18 +25,16 @@ transporter.verify(()=>{
 })
 
 export async function sendEmail({to,subject,text,html}){
-    try{
-        const info = await transporter.sendEmail({
-            from: process.env.GOOGLE_USER_EMAIL,
-            to,
-            subject,
-            text,
-            html
-        })
-        console.log("Email sent successfully",info.response)
+   const mailOption={
+    from:process.env.GOOGLE_USER_EMAIL,
+    to,
+    subject,
+    text,
+    html
 
-    } catch (error) {
-        console.error("Error sending email",error)
-    }
+   }
+
+   const detail = await transporter.sendEmail(mailOption)
+   console.log("email sent", detail)
 }
 
