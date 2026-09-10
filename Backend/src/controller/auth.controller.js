@@ -1,7 +1,7 @@
 import userModel from "../model/user.model.js"
 import bcrypt from 'bcrypt'
 import {sendEmail} from "../services/mail.services.js"
-export async function registerController(){
+export async function registerController(req,res,next){
     const{username,email,password}=req.body
 
     const isAlreadyExist = await userModel.findOne({
@@ -12,7 +12,7 @@ export async function registerController(){
 
     if(isAlreadyExist){
         if(isAlreadyExist.email === email || isAlreadyExist.uername === username ){
-           return res.send(409).json({
+           return res.status(409).json({
                 message: "Username or Email is already there ",
                 success:false,
                 err:"user already exist"
@@ -31,7 +31,7 @@ export async function registerController(){
          <p>Thank you for registering with us. Please click the link below to verify your email address.</p>`
     })
 
-    return res.send(200).json({
+    return res.status(200).json({
         message:"User registered Succesfully",
         success:true,
         user
