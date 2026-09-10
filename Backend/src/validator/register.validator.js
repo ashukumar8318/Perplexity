@@ -35,3 +35,21 @@ const validate = (req,res,next)=>{
 
 ]
 
+export const loginValidator = [
+    body("email")
+    .trim()
+    .notEmpty("email is required")
+    .isEmail().withMessage("invalid email address"),
+    body("password")
+    .trim()
+    .notEmpty("password is required"),
+
+    body("password")
+    .trim()
+    .notEmpty("password is required")
+    .isLength({min:6, max:100}).withMessage("password must be between 6 and 100 characters"),
+
+    validate
+
+]
+

@@ -82,3 +82,54 @@ export async function verifyEmailController(req,res){
     res.send(html)
 
 }
+
+export async function loginController(req,res){
+    const{email,password} = req.body
+
+    const user = await userModel.findOne({email})
+
+    if(!user){
+        return res.status(400).json({
+            message:"Invalid email",
+            success:false,
+            err:"Email not correct"
+        })
+    }
+
+    //const hash = await bcrypt.hash(password,10)
+
+    const passwordCheck = await bcrypt.compare(password,user.password)
+
+    if(!passwordCheck){
+        return res.status(400).json({
+            message:"Invalid password",
+            success:false,
+            err:"Password not correct"
+        })
+    }
+
+    if(!user.isVerified){
+        return res.status(400).json({
+            message:"Email not verified",
+            success:false,
+            err:"Email not verified"
+        })
+    }
+
+    const token = jwt.sign({
+        id:user._id,
+        email:user.email
+    }, process.env.JWT_SECREAT,{
+        expiresIn:"5d"
+    })
+
+    return res.status(200).json({
+        message:"Login successful",
+        success:true,
+        user:{
+            email:user.email,         
+            username:user.username
+        }
+
+    })  
+}
