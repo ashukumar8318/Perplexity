@@ -1,11 +1,11 @@
 import express from "express"
-import cookiParser from "cookie-parser"
+import cookieParser from "cookie-parser"
 import authRoutes from "./routes/auth.routes.js"
 
 const app = express()
 
 app.use(express.json())
-app.use(cookiParser())
+app.use(cookieParser())
 
 app.use("/api/auth",authRoutes)
 app.get("/",(req,res)=>{

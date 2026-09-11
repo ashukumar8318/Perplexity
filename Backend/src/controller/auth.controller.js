@@ -37,8 +37,8 @@ export async function registerController(req,res,next){
         subject:"Verification Email",
         html:`<p>Hi ${username},</p>
          <p>Thank you for registering with us. Please click the link below to verify your email address.</p>
-          <!-- <a href="http://localhost:3000/verify-email?token=${emailVerificationToken}">Verify Email</a> -->
-         <a href="https://organic-bassoon-97wrxv7jvxgphr96-3000.app.github.dev/api/auth/verify-email?token=${emailVerificationToken}">Verify Email</a>
+          <a href="http://localhost:3000/verify-email?token=${emailVerificationToken}">Verify Email</a> 
+       <!--  <a href="https://organic-bassoon-97wrxv7jvxgphr96-3000.app.github.dev/api/auth/verify-email?token=${emailVerificationToken}">Verify Email</a>-->
          <p>Best regards,</p>
          <p>Perplexity Team</p>
         `
@@ -122,6 +122,7 @@ export async function loginController(req,res){
     }, process.env.JWT_SECREAT,{
         expiresIn:"5d"
     })
+    res.cookie("token",token)
 
     return res.status(200).json({
         message:"Login successful",
@@ -132,4 +133,22 @@ export async function loginController(req,res){
         }
 
     })  
+}
+
+export async function getMeController(req,res){
+    const userid = req.user.id
+    // console.log("userid",userid)
+    const user = await userModel.findById(userid)
+    // console.log("user",user)
+    if(!user){
+        return res.status(404).json({
+            message:"User not found",   
+        })
+    }
+
+    return res.status(200).json({
+        message:"User found",
+        success:true,
+        user
+    })
 }
