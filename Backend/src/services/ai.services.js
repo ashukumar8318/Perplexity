@@ -8,7 +8,7 @@ const model = new ChatGoogleGenerativeAI({
 
 export async function testAi(){
    try{
-    const res = await model.invoke("could you generate image of newdelhi")
+    const res = await model.invoke("who is shreya chakraborty IIT BHU BIOMEDICAL bachelor degree from amity university")
     console.log(res.content)
    }
    catch(err){
