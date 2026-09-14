@@ -1,6 +1,24 @@
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+import { useAuth} from '../hook/useAuth'
+import { useState } from 'react'
+
 
 const Register = () => {
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const navigate = useNavigate()
+    const {handleRegister} = useAuth()
+
+    async function handleSubmit(e) {
+        e.preventDefault()
+       const ok = await handleRegister({username,email,password})
+       
+        if(!ok){
+            return navigate("/register")
+        }
+        navigate("/login")
+    }
   return (
     <div className="min-h-screen bg-[#090d18] text-slate-100 flex items-center justify-center px-4 py-10">
       <div className="w-full max-w-6xl overflow-hidden rounded-3xl border border-violet-500/20 bg-slate-950/80 shadow-[0_0_45px_rgba(168,85,247,0.20)] backdrop-blur-sm">
@@ -38,7 +56,7 @@ const Register = () => {
               </div>
             </div>
 
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="username" className="mb-2 block text-sm font-medium text-slate-300">
                   Username
@@ -48,6 +66,8 @@ const Register = () => {
                   type="text"
                   placeholder="Enter your username"
                   className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30"
+                  value={username}
+                  onChange={(e)=>setUsername(e.target.value)}
                 />
               </div>
 
@@ -60,6 +80,8 @@ const Register = () => {
                   type="email"
                   placeholder="you@example.com"
                   className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30"
+                  value={email}
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
               </div>
 
@@ -72,6 +94,8 @@ const Register = () => {
                   type="password"
                   placeholder="Create a strong password"
                   className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
+                  value={password}
+                  onChange={(e)=>setPassword(e.target.value)}
                 />
               </div>
 

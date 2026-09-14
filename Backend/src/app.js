@@ -13,11 +13,13 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(cookieParser())
+app.use(morgan("dev"))
+
 
 app.use("/api/auth",authRoutes)
 app.get("/",(req,res)=>{
     res.send("working")
 })
-app.use(morgan("dev"))
+
 
 export default app
