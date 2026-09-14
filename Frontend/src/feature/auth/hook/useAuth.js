@@ -3,7 +3,7 @@ import { login,register,getMe } from "../services/auth.api";
 import { setUser,setLoading,setError } from "../auth.slice";
 
 
-export async function useAuth() {
+export function useAuth() {
 
     const dispatch = useDispatch()
 
