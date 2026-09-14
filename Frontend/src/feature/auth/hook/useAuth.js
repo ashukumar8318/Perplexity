@@ -7,7 +7,7 @@ export async function useAuth() {
 
     const dispatch = useDispatch()
 
-    async function handleRegister({username,email,passwor}){
+    async function handleRegister({username,email,password}){
         try {
             dispatch(setLoading(true))
             const data = await register({username,email,password})

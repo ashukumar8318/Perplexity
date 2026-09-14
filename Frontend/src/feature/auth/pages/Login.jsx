@@ -63,6 +63,8 @@ const Login = () => {
                   type="email"
                   placeholder="you@example.com"
                   className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-cyan-400 focus:ring-2 focus:ring-cyan-500/30"
+                  value={email}
+                  onChange={(e)=>setEmail(e.target.value)}
                 />
               </div>
 
@@ -75,6 +77,8 @@ const Login = () => {
                   type="password"
                   placeholder="Enter your password"
                   className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-4 py-3 text-white placeholder:text-slate-500 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-500/30"
+                  value={password}
+                  onChange={(e)=>setPassword(e.target.value)}
                 />
               </div>
 

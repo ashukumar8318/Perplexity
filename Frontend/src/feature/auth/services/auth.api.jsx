@@ -14,7 +14,8 @@ export async function register({username,email,password}) {
         return responses.data
         
     } catch (error) {
-        return error
+      
+        throw error
         
     }
     
@@ -36,7 +37,8 @@ export async function getMe() {
         const response = await api.get("/api/auth/get-me")
         return response.data
     } catch (error) {
-        return error
+       
+        throw error
     }
     
 }
