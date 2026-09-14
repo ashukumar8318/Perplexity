@@ -1,19 +1,25 @@
 import { Link,useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useAuth } from "../hook/useAuth"
+import { useSelector } from 'react-redux'
 
 const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const navigate = useNavigate()
-    const {handleLogin} = useAuth() 
+    const {handleLogin} = useAuth()
+    const error = useSelector((s)=>s.auth.error)
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+      e.preventDefault()
+      console.log("Login: handleSubmit called", { email, password })
         await handleLogin({email,password})
-        navigate("/")
+    //   console.log("Login: handleLogin returned", ok)
+     navigate("/")
     }
+
+    
 
 
   return (
@@ -53,7 +59,12 @@ const Login = () => {
               </div>
             </div>
 
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
+              {error && (
+                <div className="rounded-md border border-red-600/30 bg-red-900/40 px-4 py-3 text-sm text-red-200">
+                  {typeof error === 'string' ? error : JSON.stringify(error)}
+                </div>
+              )}
               <div>
                 <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-300">
                   Email

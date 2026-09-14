@@ -23,19 +23,18 @@ export function useAuth() {
 
 
     async function handleLogin({email,password}) {
-        
         try {
             dispatch(setLoading(true))
             const data = await login({email,password})
             dispatch(setUser(data.user))
+            return true
         } catch (error) {
-             dispatch(setError(error.response?.data?.message|| "login Failed"))
-            
+            dispatch(setError(error.response?.data?.message|| "login Failed"))
+            return false
         }
         finally{
             dispatch(setLoading(false))
         }
-        
     }
 
     async function handlegetMe(){
