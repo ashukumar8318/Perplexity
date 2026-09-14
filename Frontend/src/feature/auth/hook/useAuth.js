@@ -23,6 +23,7 @@ export async function useAuth() {
 
 
     async function handleLogin({email,password}) {
+        
         try {
             dispatch(setLoading(true))
             const data = await login({email,password})
