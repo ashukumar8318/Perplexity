@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom"
 import Login from "../feature/auth/pages/Login"
 import Register from "../feature/auth/pages/Register"
+import Dashboard from "../feature/chat/pages/Dashboard"
 
 const router = createBrowserRouter([
   {
@@ -13,7 +14,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <h1>Welcome to the App</h1>,
+    element: <Dashboard/>
   },
   {
   }
