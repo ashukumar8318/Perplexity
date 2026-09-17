@@ -3,6 +3,7 @@ import cookieParser from "cookie-parser"
 import cors from "cors"
 import authRoutes from "./routes/auth.routes.js"
 import morgan from "morgan"
+import chatRoutes from "./routes/chat.routes.js"
 
 const app = express()
 
@@ -17,6 +18,7 @@ app.use(morgan("dev"))
 
 
 app.use("/api/auth",authRoutes)
+app.use("/api/chat",chatRoutes)
 app.get("/",(req,res)=>{
     res.send("working")
 })
