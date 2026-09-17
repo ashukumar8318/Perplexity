@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import chatModel from "./chat.model";
+import mongoose,{Schema} from "mongoose";
+import chatModel from "./chat.model.js";
 
 const mesSchema = new mongoose.Schema({
     chat:{

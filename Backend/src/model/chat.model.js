@@ -1,5 +1,5 @@
-import mongoose from mongoose
-import userModel from "./user.model"
+import mongoose,{Schema} from "mongoose"
+import userModel from "./user.model.js"
 
 const chatSchema = new mongoose.Schema({
     user:{

@@ -1,4 +1,3 @@
-import { ChatGoogle } from "@langchain/google";
 import { HumanMessage } from "@langchain/core/messages";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatMistralAI } from "@langchain/mistralai";
@@ -9,9 +8,13 @@ const geminiModel = new ChatGoogleGenerativeAI({
 });
 
 const mistralModel = new ChatMistralAI({
-    model: "mistral-small-latest",
+    model: "mistral-medium-3-5",
     apiKey: process.env.MISTRAL_API_KEY
 });
+console.log(
+    "Mistral key loaded:",
+    !!process.env.MISTRAL_API_KEY
+);
 
 export async function genrateResponse(message){
    try{
@@ -19,9 +22,9 @@ export async function genrateResponse(message){
       new HumanMessage(message)
     ])
 
-    console.log("Response success",response.text)
+    console.log("Response success",response.content)
 
-    return response.text
+    return response.content
 
    }
    catch(error){
@@ -31,13 +34,75 @@ export async function genrateResponse(message){
 
 }
 
+// export async function generateTitle(message){
+//  try {
+//    const response = await mistralModel.invoke([
+//         {
+//             role: "system",
+//             content: `
+//                 Generate a short title for the user's message.
+
+//                 Rules:
+//                 - Maximum 8 words
+//                 - Return only the title
+//                 - No quotation marks
+//                 - Do not answer the question
+//             `
+//         },
+//         {
+//             role: "user",
+//             content: message
+//         }
+//     ]);
+
+//     return response.content;
+  
+//  } catch (error) {
+//   console.error("error in MiralAi",error)
+//   throw error
+  
+//  }
+
+// // try {
+// //     const response = await mistralModel.invoke(
+// //         "Generate a short title for: How can I learn React?"
+// //     );
+
+// //     console.log("TITLE:", response.content);
+
+// // } catch (error) {
+// //     console.log("ERROR:", error);
+// // }
+// }
+
 export async function generateTitle(message){
-  try {
-    
+ try {
+   const response = await geminiModel.invoke([
+        {
+            role: "system",
+            content: `
+                Generate a short title for the user's message.
+
+                Rules:
+                - Maximum 8 words
+                - Return only the title
+                - No quotation marks
+                - Do not answer the question
+            `
+        },
+        {
+            role: "user",
+            content: message
+        }
+    ]);
+
+    return response.content;
+  
+ } catch (error) {
+  console.error("error in Gemini",error)
+  throw error
+  
+ }
 
 
-    
-  } catch (error) {
-    
-  }
 }
