@@ -17,9 +17,9 @@ app.use(morgan("dev"))
 
 
 app.use("/api/auth",authRoutes)
-// app.get("/",(req,res)=>{
-//     res.send("working")
-// })
+app.get("/",(req,res)=>{
+    res.send("working")
+})
 
 
 export default app

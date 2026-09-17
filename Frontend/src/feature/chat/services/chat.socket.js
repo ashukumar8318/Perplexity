@@ -11,7 +11,7 @@ export function createSocket() {
     });
 
     socket.on("connect_error", (error) => {
-        console.log(" Connection error:", error.message);
+        console.error("Socket connection error:", error.message);
     });
 
     return socket;
