@@ -1,9 +1,9 @@
-import { HumanMessage } from "@langchain/core/messages";
+import { HumanMessage,AIMessage } from "@langchain/core/messages";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatMistralAI } from "@langchain/mistralai";
 
 const geminiModel = new ChatGoogleGenerativeAI({
-  model: "gemini-3.6-flash",
+  model: "gemini-3-flash-preview",
   apiKey: process.env.GEMINI_API_KEY,
 });
 
@@ -18,9 +18,14 @@ console.log(
 
 export async function genrateResponse(message){
    try{
-    const response = await geminiModel.invoke([
-      new HumanMessage(message)
-    ])
+    const response = await geminiModel.invoke(message.map(msg=>{
+      if(msg.role == "user"){
+        return new HumanMessage(msg.content)
+      }else if(msg.role == "Ai"){
+        return new AIMessage(msg.content)
+      }
+      
+    }))
 
     console.log("Response success",response.content)
 
